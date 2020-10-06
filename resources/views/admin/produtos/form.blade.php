@@ -6,29 +6,52 @@
 
 @section('conteudo-principal')
 
-    <form method="post" action="">
-        <div class="row">
-            <div class="col-8"><label for="produto">Produto</label></div>
-            <div class="col-4"><label for="categoria">Categoria</label></div>
-          </div>
-        <div class="form-group">
-            <div class="form-row">
-                <div class="col-4"><input id="produto" class="form-control mb-2 mr-sm-2   " type="text" name="produto"></div>
-                <div class="col-2"><input id="complemento1" class="form-control mb-2 mr-sm-2" type="text" name="complemento1"></div>
-                <div class="col-2"><input id="complemento2" class="form-control mb-2 mr-sm-2" type="text" name="complemento2"></div>
-                <div class="col-4">
-                    <select class="form-control" name="categoria" id="categoria">
-                        <option value="0">Celular & Telefone</option>
-                        <option value="1">Computadores</option>
-                        <option value="2">Hardware</option>
-                        <option value="3">Periféricos</option>
-                    </select>
-                </div>
+    <section class="section">
+
+        <form action="{{route('admin.produtos.adicionar')}}" method="POST">
+
+            {{-- cross-site request forgery csrf --}}
+            @csrf
+
+            <div class="input-field">
+                <input type="text" name="nome" id="nome" />
+                <label for="nome">Nome</label>
+                @error('nome')
+                    <span class="red-text text-accent-3"><small>{{$message}}</small></span>
+                @enderror
             </div>
-        </div>
 
-        <button class="btn btn-primary">Salvar</button>
+            <div class="input-field">
+                <input type="text" name="descricao" id="descricao" />
+                <label for="descricao">Descrição</label>
+                @error('descricao')
+                    <span class="red-text text-accent-3"><small>{{$message}}</small></span>
+                @enderror
+            </div>
 
-    </form>
+            <div class="input-field">
+                <input type="text" name="quantidade" id="quantidade" />
+                <label for="quantidade">Quantidade</label>
+                @error('quantidade')
+                    <span class="red-text text-accent-3"><small>{{$message}}</small></span>
+                @enderror
+            </div>
+
+            <label>
+                <input type="checkbox" checked="checked" name="ativo" id="ativo" value="1"/>
+                <span>Produto Ativo</span>
+                @error('ativo')
+                    <span class="red-text text-accent-3"><small>{{$message}}</small></span>
+                @enderror
+            </label>
+
+            <div class="right-align">
+                <a class="btn-flat waves-effect" href="{{url()->previous()}}">Cancelar</a>
+                <button class="btn waves-effect waves-light" type="submit">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </section>
 
 @endsection
