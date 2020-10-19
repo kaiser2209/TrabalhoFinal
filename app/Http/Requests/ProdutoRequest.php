@@ -24,7 +24,7 @@ class ProdutoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'bail|required|min:3|max:100|unique:produtos',
+            'nome' => "bail|required|min:3|max:100|unique:produtos,nome,$this->produto",
             'descricao' => 'max:255',
             'quantidade' => 'numeric',
             'ativo' => 'boolean'

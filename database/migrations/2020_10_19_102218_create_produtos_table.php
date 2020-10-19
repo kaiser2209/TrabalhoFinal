@@ -19,6 +19,12 @@ class CreateProdutosTable extends Migration
             $table->string('descricao', 255)->nullable();
             $table->integer('quantidade')->default(0);
             $table->boolean('ativo')->default(0);
+/*
+            $table->unsignedBigInteger('categoria_id');
+            $table->foreign('cidade_id')->references('id')->on('categorias');
+            */
+            $table->foreignId('categoria_id')->constrained()->onDelete('cascade');
+
             $table->timestamps();
         });
     }

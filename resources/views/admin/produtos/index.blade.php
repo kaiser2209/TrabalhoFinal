@@ -16,6 +16,7 @@
                 <th>Produto</th>
                 <th>Descrição</th>
                 <th>Quantidade</th>
+                <th>Categoria</th>
                 <th>Situação</th>
                 <th></th>
             </tr>
@@ -26,6 +27,7 @@
                     <td>{{$produto->nome}}</td>
                     <td>{{$produto->descricao}}</td>
                     <td>{{$produto->quantidade}}</td>
+                    <td>{{$produto->categoria->nome}}</td>
                     <td>
                         <label>
                             <input type="checkbox" disabled="disabled" class="filled-in"
@@ -37,12 +39,21 @@
                         </label>
                     </td>
                     <td class="right-align">
-                        <span class="btn btn-info btn-sm" title="Editar">
-                            <i class="fas fa-edit fa-fw"></i>
+                        <a href="{{route('admin.produtos.edit', $produto->id)}}">
+                        <span>
+                            <i class="material-icons blue-text text-accent-2">edit</i>
                         </span>
-                        <button class="btn btn-danger btn-sm ml-1" title="Excluir">
-                            <i class="far fa-trash-alt fa-fw"></i>
-                        </button>
+                        <form action="{{route('admin.produtos.destroy', $produto->id)}}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+
+                            <button style="border:0; background: transparent;" type="submit">
+                                <span style="cursor: pointer;">
+                                    <i class="material-icons red-text text-accent-3">delete_forever</i>
+                                </span>
+                            </button>
+                        </form>
+
                     </td>
                 </tr>
             @empty
@@ -52,7 +63,7 @@
     </table>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large waves-effect waves-light" href="{{route('admin.produtos.form_adicionar')}}">
+        <a class="btn-floating btn-large waves-effect waves-light" href="{{route('admin.produtos.create')}}">
             <i class="large material-icons">add</i>
         </a>
     </div>

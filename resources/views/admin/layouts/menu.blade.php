@@ -4,8 +4,8 @@
             <a href="/" class="brand-logo">Stok - Admin</a>
             <ul class="right">
                 <ul>
-                    <li><a href="{{route('admin.produtos.listar')}}">Produtos</a></li>
-                    <li><a href="">Categorias</a></li>
+                    <li><a href="{{route('admin.produtos.index')}}">Produtos</a></li>
+                    <li><a href="{{route('admin.categorias.index')}}">Categorias</a></li>
                     <li><a href="">Fornecedores</a></li>
                 </ul>
             </ul>

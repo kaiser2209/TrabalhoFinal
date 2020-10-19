@@ -21,7 +21,8 @@ class ProdutoController extends Controller
     }
 
     public function formAdicionar() {
-        return view('admin.produtos.form');
+        $action = route('admin.produtos.adicionar');
+        return view('admin.produtos.form', compact('action'));
     }
 
     public function adicionar(ProdutoRequest $request) {
@@ -52,6 +53,35 @@ class ProdutoController extends Controller
 
         $request->session()->flash('sucesso', "Registro salvo com sucesso!");
 
+        return redirect()->route('admin.produtos.listar');
+    }
+
+    public function deletar($id, Request $request) {
+        Produto::destroy($id);
+
+        $request->session()->flash('sucesso', "Registro excluído com sucesso!");
+
+        return redirect()->route('admin.produtos.listar');
+    }
+
+    public function formEditar($id) {
+        $produto = Produto::find($id);
+        $action = route('admin.produtos.editar', $produto->id);
+        return view('admin.produtos.form', compact('produto', 'action'));
+    }
+
+    public function editar(ProdutoRequest $request, $id) {
+        $produto = Produto::find($id);
+        /*
+        $produto->nome = $request->nome;
+        $produto->descricao = $request->descricao;
+        $produto->quantidade = $request->quantidade;
+        $produto->ativo = $request->has('ativo');
+        $produto->save();
+        */
+        $produto->update($request->all());
+
+        $request->session()->flash('sucesso', "Registro alterado com sucesso!");
         return redirect()->route('admin.produtos.listar');
     }
 }
